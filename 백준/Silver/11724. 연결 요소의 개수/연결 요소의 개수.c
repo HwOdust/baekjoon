@@ -1,40 +1,37 @@
 #include<stdio.h>
 
 
-int computer[1001][1001] = { 0 }, cnt = 0, visited[1001] = { 0 };
+int arr[1001][1001] = { 0 }; 
+int visited[1001] = { 0 };
+int n, m, cnt = 0;
 
-void virus(int t,int n)
+void dfs(int x)
 {
-	visited[t] = 1;
+	visited[x] = 1;
 	for (int i = 1; i <= n; i++)
 	{
-		if (visited[i] || !computer[t][i])continue;
-		virus(i, n);
+		if (visited[i] || arr[x][i] == 0)continue;
+		dfs(i);
 	}
-
 }
-
-
 
 int main()
 {
-	int n, k, a, b;
-	scanf("%d %d", &n, &k);
-	for (int i = 0; i < k; i++)
+	scanf("%d %d", &n, &m);
+	for (int i = 0; i < m; i++)
 	{
+		int a, b;
 		scanf("%d %d", &a, &b);
-		computer[a][b] = 1;
-		computer[b][a] = 1;
+		arr[a][b] = 1;
+		arr[b][a] = 1;
 	}
 	for (int i = 1; i <= n; i++)
 	{
 		if (visited[i] == 1)continue;
-		virus(i, n);
+		dfs(i);
 		cnt++;
 	}
-
 	printf("%d", cnt);
 
 	return 0;
-	
 }
